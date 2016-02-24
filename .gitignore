@@ -1,2 +1,6 @@
 build
 firmware
+.cproject
+.project
+flash.sh
+.settings
