@@ -27,11 +27,14 @@ SDK_BASE	?= /opt/Espressif/ESP8266_SDK
 ESPTOOL		?= esptool.py
 ESPPORT		?= /dev/ttyUSB0
 
+#Flash speed default = 115200
+ESPBAUD = 230400 
+
 # name for the target project
 TARGET		= app
 
 # which modules (subdirectories) of the project to include in compiling
-MODULES		= driver user
+MODULES		= driver user mqtt modules
 EXTRA_INCDIR    = include
 
 # libraries used in this project, mainly provided by the SDK
@@ -127,7 +130,7 @@ $(FW_BASE):
 	$(Q) mkdir -p $@
 
 flash: $(FW_FILE_1) $(FW_FILE_2)
-	$(ESPTOOL) --port $(ESPPORT) write_flash $(FW_FILE_1_ADDR) $(FW_FILE_1) $(FW_FILE_2_ADDR) $(FW_FILE_2)
+	$(ESPTOOL) --port $(ESPPORT) --baud $(ESPBAUD) write_flash $(FW_FILE_1_ADDR) $(FW_FILE_1) $(FW_FILE_2_ADDR) $(FW_FILE_2)
 
 clean:
 	$(Q) rm -rf $(FW_BASE) $(BUILD_BASE)
